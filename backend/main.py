@@ -7,6 +7,19 @@ from backend.services.portfolio_analyzer import analyze_portfolio
 from backend.services.ai_advisor import get_ai_advice
 
 app = FastAPI(title="NorthstarFI API")
+@app.get("/")
+def root():
+    return {
+        "application": "NorthstarFI API",
+        "status": "running"
+    }
+
+
+@app.get("/health")
+def health():
+    return {
+        "status": "healthy"
+    }
 create_tables()
 
 class FireRequest(BaseModel):
@@ -32,10 +45,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-@app.get("/")
-def health_check():
-    return {"status": "NorthstarFI API is running"}
 
 @app.post("/calculate")
 def calculate(request: FireRequest, db: Session = Depends(get_db)):
