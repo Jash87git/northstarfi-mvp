@@ -1,7 +1,11 @@
+import os
 import requests
 import streamlit as st
 
-API_URL = "http://localhost:8000"
+API_URL = os.getenv(
+    "BACKEND_URL",
+    "http://localhost:8000"
+)
 
 st.set_page_config(page_title="NorthstarFI", page_icon="🔥", layout="wide")
 st.title("🔥 NorthstarFI - AI FIRE Planning MVP")
